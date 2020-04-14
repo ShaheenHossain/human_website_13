@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eagle>
+ <data>
+  <template id="report_eagleedu_application">
+   <t t-call="web.html_container">
+    <t t-foreach="docs" t-as="o">
+     <t t-call="web.external_layout">
+      <div class="page">
+       <div class="oe_structure"/>
+        <div class="row">
+         <center>
+          <div class="col-xs-12" style="margin:auto">
+           <h2><span>Student Application Form</span></h2>
+            <div class="col-xs-12" style="margin:auto">
+             <h4><span>For </span><span t-field="o.application_no"/></h4>
+            </div>
+            <div class="col-xs-8" style="margin:auto">
+             <p style="padding-top:20px;"/>
+             <table class="table table-condensed">
+              <tr><td></td><td> <span>In English</span></td><td> <span>বাংলায়</span></td></tr>
+               <tr>
+               <td>
+                <strong><span>Student's Name:</span></strong>
+                </td>
+                <td>
+                <span t-field="o.name"/>
+                </td><td>
+                <span t-field="o.st_name_b"/>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <strong><span>Father's Name:</span></strong>
+                </td>
+                <td>
+                <span t-if="o.st_father_name" t-field="o.st_father_name"/>
+                        </td>
+                        <td>
+                            <span t-if="o.st_father_name_b" t-field="o.st_father_name_b"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong><span>Mother's Name:</span></strong>
+                        </td>
+                        <td>
+                            <span t-if="o.st_mother_name" t-field="o.st_mother_name"/>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong><span>মায়ের নাম:</span></strong>
+                        </td>
+                        <td>
+                            <span t-if="o.st_mother_name_b" t-field="o.st_mother_name_b"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong><span>Guardian's Name:</span></strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4" style="margin:auto">
+<!--                                            <img t-if="not o.st_image" t-att-src="'/eagleedu01/static/src/img/placeholder.jpg'" height="120" border="1" width="120"/>-->
+                <img t-if="o.st_image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" height="120" border="1" width="80"/>
+            </div>
+          </div>
+            <div class="col-xs-12" style="margin:auto">
+                <table class="table" >
+                    <tr>
+                        <td class="col-xs-4">
+                            <p style="text-align:left; padding-left:10px;">
+                                <strong><span>Communication Address:</span></strong>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr t-if="o.st_gender">
+                        <td style="text-align:left; padding-left:10px;" class="col-xs-4">
+                            <strong><span t-if="o.st_gender">Sex:</span></strong>
+                        </td>
+                        <td style="text-align:left;" class="col-xs-4">
+                            <span t-if="o.st_gender" t-field="o.st_gender"/>
+                        </td>
+                    </tr>
+                    <tr t-if="o.religious_id">
+                        <td style="text-align:left; padding-left:10px;" class="col-xs-4">
+                            <strong><span t-if="o.religious_id">Religious:</span></strong>
+                        </td>
+                        <td style="text-align:left;" class="col-xs-4">
+                            <span t-if="o.religious_id" t-field="o.religious_id"/>
+                        </td>
+                    </tr>
+
+                    <tr t-if="o.date_of_birth">
+                        <td style="text-align:left; padding-left:10px;" class="col-xs-4">
+                            <strong><span>Date of Birth:</span></strong>
+                        </td>
+                        <td style="text-align:left;" class="col-xs-4">
+                            <span t-if="o.date_of_birth" t-field="o.date_of_birth"/>
+                        </td>
+                    </tr>
+            <tr t-if="o.father_mobile">
+                <td style="text-align:left; padding-left:10px;" class="col-xs-4">
+                    <strong><span t-if="o.father_mobile">Mobile:</span></strong>
+                </td>
+                <td style="text-align:left;" class="col-xs-4">
+                    <span t-if="o.father_mobile" t-field="o.father_mobile"/>
+                </td>
+            </tr>
+          </table>
+         </div>
+        </center>
+       </div>
+      </div>
+     </t>
+    </t>
+   </t>
+  </template>
+ </data>
+</eagle>

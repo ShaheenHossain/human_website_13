@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eagle>
+
+    <record id="view_eagleedu_academic_year_tree" model="ir.ui.view">
+        <field name="name">eagleedu.academic.year.tree</field>
+        <field name="model">eagleedu.academic.year</field>
+        <field name="arch" type="xml">
+            <tree string="Year Information">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_eagleedu_academic_year_form" model="ir.ui.view">
+        <field name="name">eagleedu.academic.year.form</field>
+        <field name="model">eagleedu.academic.year</field>
+        <field name="arch" type="xml">
+            <form string="Year Information">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                        <field name="academic_year_description" placeholder="Enter the description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_eagleedu_academic_year" model="ir.actions.act_window">
+        <field name="name">Year Information</field>
+        <field name="res_model">eagleedu.academic.year</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first academic year here.
+            </p>
+        </field>
+    </record>
+
+
+-->
+    <menuitem id="eagleedu_main_menu_conf" name="Configuration" parent="eagleedu_menu_root"/>
+
+    <menuitem id="eagleedu_submenu_class_conf" name="Settings" parent="eagleedu_main_menu_conf" sequence="0"/>
+
+    <menuitem action="action_eagleedu_academic_year" parent="eagleedu_submenu_class_conf"
+              id="menu_action_eagleedu_academic" name = "Year Information" sequence="10"/>
+
+
+</eagle>

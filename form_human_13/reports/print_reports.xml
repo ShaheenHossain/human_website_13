@@ -1,0 +1,12 @@
+<eagle>
+    <data>
+        <report
+            id="action_report_eagleedu_application"
+            model="eagleedu.application"
+            string="Print Student Application"
+            report_type="qweb-pdf"
+            name="eagleedu_core.report_eagleedu_application"
+            file="eagleedu_core.report_eagleedu_application"
+        />
+    </data>
+</eagle>

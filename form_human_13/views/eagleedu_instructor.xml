@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eagle>
+
+    <record id="view_eagleedu_instructor_tree" model="ir.ui.view">
+        <field name="name">eagleedu.instructor.tree</field>
+        <field name="model">eagleedu.instructor</field>
+        <field name="arch" type="xml">
+            <tree string="Information Provider">
+                <field name="instructor_id"/>
+                <field name="name"/>
+                <field name="ins_date_of_birth"/>
+                <field name="ins_father_name"/>
+                <field name="ins_mother_name"/>
+                <field name="ins_mobile_no"/>
+                <field name="ins_email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_eagleedu_instructor_form" model="ir.ui.view">
+        <field name="name">eagleedu.instructor.form</field>
+        <field name="model">eagleedu.instructor</field>
+        <field name="arch" type="xml">
+            <form string="Instructor">
+                <sheet>
+                    <field name="ins_image" widget="image" class="oe_left oe_avatar" />
+                    <div class="oe_title">
+                        <h3>
+                            <label for ='instructor_id'/>
+                            <field name="instructor_id" attrs="{'invisible': [('instructor_id', '!=','')]}"/>
+                            <field name="instructor_id" />
+                        </h3>
+                        <h2>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="name" placeholder="Name of Instructor" required="1"/></td>
+                                </tr>
+                            </table>
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page string="Instructor Details">
+                            <separator string="Basic Details"/>
+                            <separator string="Information Provider Info"/>
+                            <group>
+                                <group>
+                                    <field name="ins_father_name" string="Father's Name"/>
+                                    <field name="ins_mother_name" string="Mother's Name"/>
+                                    <field name="ins_gender"/>
+                                    <field name="ins_date_of_birth"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Contact Details">
+                            <separator string="Information Provider Info"/>
+                            <group>
+                                <group>
+                                    <field name="ins_present_address" string="Present Address"/>
+                                    <field name="ins_permanent_address" string="Permanent Address"/>
+                                    <field name="ins_mobile_no" string="Mobile No."/>
+                                    <field name="ins_email" string="Email"/>
+                                </group>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eagleedu_instructor" model="ir.actions.act_window">
+        <field name="name">Informer Details</field>
+        <field name="res_model">eagleedu.instructor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first informer here.
+            </p>
+        </field>
+    </record>
+
+    <record id="seq_eagleedu_instructor" model="ir.sequence">
+        <field name="name">Informer Seq</field>
+        <field name="code">eagleedu.instructor</field>
+        <field name="prefix">INF</field>
+        <field name="number_increment">1</field>
+        <field name="padding">6</field>
+    </record>
+
+    <menuitem id="eagleedu_instructor_menu" name="Information Provider"
+            parent="eagleedu_main_menu_admission" action="action_eagleedu_instructor"/>
+
+
+</eagle>
+

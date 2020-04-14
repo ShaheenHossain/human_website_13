@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eagle>
+    <data noupdate="1">
+
+        <record id="menu_info" model="website.menu">
+            <field name="name">Manush</field>
+            <field name="url">/info</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+        <record id="action_open_website" model="ir.actions.act_url">
+            <field name="name">Website for Manush</field>
+            <field name="target">self</field>
+            <field name="url">/info</field>
+        </record>
+        <record id="base.open_menu" model="ir.actions.todo">
+            <field name="action_id" ref="action_open_website"/>
+            <field name="state">open</field>
+        </record>
+
+        <record id="website_sale.image_promo" model="product.style">
+            <field name="name">Ribbon</field>
+            <field name="html_class">oe_ribbon_promo</field>
+        </record>
+        <record id="website_sale.image_full" model="product.style">
+            <field name="name">Image Full</field>
+            <field name="html_class">oe_image_full</field>
+        </record>
+
+        <record id="sales_team.salesteam_website_sales" model="crm.team">
+            <field name="active" eval="True"/>
+        </record>
+
+        <record model="website" id="website.default_website">
+            <field name="salesteam_id" ref="sales_team.salesteam_website_sales"/>
+        </record>
+
+        <record model="product.pricelist" id="product.list0">
+            <field name="selectable" eval="True" />
+            <field name="website_id" eval="False"/>
+        </record>
+    </data>
+    <data>
+        <record id="sale.model_sale_order" model="ir.model">
+            <field name="website_form_access" eval="True"/>
+            <field name="website_form_label"> Order</field>
+        </record>
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>sale.order</value>
+            <value eval="[
+                'client_order_ref',
+            ]"/>
+        </function>
+
+        <record id="base.model_res_partner" model="ir.model">
+            <field name="website_form_key">create_customer</field>
+            <field name="website_form_access">True</field>
+            <field name="website_form_label">Create a Information</field>
+        </record>
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>res.partner</value>
+            <value eval="[
+                'name', 'phone', 'email',
+                'city', 'zip', 'street', 'street2', 'state_id', 'country_id',
+                'vat', 'company_name'
+            ]"/>
+        </function>
+    </data>
+</eagle>

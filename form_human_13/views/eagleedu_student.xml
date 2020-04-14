@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eagle>
+
+    <record id="view_eagleedu_student_tree" model="ir.ui.view">
+        <field name="name">eagleedu.student.tree</field>
+        <field name="model">eagleedu.student</field>
+        <field name="arch" type="xml">
+            <tree string="Human">
+                <field name="adm_no" string="Human ID"/>
+                <field name="name"/>
+                <field name="st_father_name"/>
+                <field name="st_mother_name"/>
+                <field name="academic_year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_eagleedu_student_form" model="ir.ui.view">
+        <field name="name">eagleedu.student.form</field>
+        <field name="model">eagleedu.student</field>
+        <field name="arch" type="xml">
+            <form string="Human">
+                <header>
+                    <button name="send_to_publish" type="object" class="oe_highlight"
+                     string="Publish on website" groups="base.group_user"
+                     help="Click to send the application for verification purpose"
+                     states="draft"/>
+                   <button name="create_human" string="Create Human Final"
+                     type="object" class="oe_highlight"
+                     help="Click to create Human info"
+                     states="approve"/>
+                     <field name="state" widget="statusbar" statusbar_visible="draft,approve,done"/>
+                 </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="student_documents" type="object" widget="statinfo"
+                                class="oe_stat_button" icon="fa-calendar" string="Documents">
+                        </button>
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_left oe_avatar" />
+                    <div class="oe_title">
+                        <h3>
+                            <label for ='adm_no'/>
+                            <field name="adm_no" attrs="{'invisible': [('adm_no', '!=','')]}"/>
+                            <field name="adm_no" />
+                        </h3>
+                        <h2>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="name" placeholder="Name" required="1"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right:10px;"><field name="st_name_b" placeholder="নাম" required="0"/></td>
+
+                                </tr>
+                            </table>
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page string="Human Details">
+
+                            <separator string="Basic Details"/>
+                              <group>
+                                <field name="academic_year" string="Year Information"/>
+                              </group>
+                            <separator string="Human Information"/>
+                                <group>
+                                    <field name="date_of_birth"/>
+                                    <field name="registration_date"/>
+                                    <field name="st_gender"/>
+                                    <field name="st_blood_group"/>
+                                    <field name="religious_id"/>
+                                    <field name="st_passport_no"/>
+                                  </group>
+                        </page>
+                        <page string="Contact Details">
+                            <separator string="Parent's Information"/>
+                                <group>
+                                    <field name="st_father_name"/>
+                                    <!--<field name="st_father_name_b"/>
+                                    <field name="st_father_occupation"/>
+                                    <field name="father_mobile"/>-->
+                                    <field name="st_mother_name"/>
+                                    <!--<field name="st_mother_name_b"/>
+                                    <field name="st_mother_occupation"/>
+                                    <field name="mother_mobile"/>-->
+                                </group>
+
+                               <group string="Present Address">
+                                <field name="house_no"/>
+                                <field name="road_no"/>
+                                <field name="post_office"/>
+                                <field name="city"/>
+                                <field name="bd_division_id"/>
+                                <field name="country_id"/>
+                              </group>
+
+                              <group string="Permanent Address">
+                                <field name="per_village"/>
+                                <field name="per_po"/>
+                                <field name="per_ps"/>
+                                <field name="per_dist_id"/>
+                                <field name="per_bd_division_id"/>
+                                <field name="country_id"/>
+                              </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eagleedu_student" model="ir.actions.act_window">
+        <field name="name">Human</field>
+        <field name="res_model">eagleedu.student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first student here.
+            </p>
+        </field>
+    </record>
+
+    <record id="seq_eagleedu_student" model="ir.sequence">
+        <field name="name">Stuent Seq</field>
+<!--
+        <field name="res_model">eagleedu.student</field>
+-->
+        <field name="code">eagleedu.student</field>
+        <field name="prefix">ST%(year)s-</field>
+<!--        <field name="suffix">%(year)s-</field>-->
+        <field name="number_increment">1</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="action_eagleedu_student" model="ir.actions.act_window">
+        <field name="name">Human</field>
+        <field name="res_model">eagleedu.student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+<!--
+        <field name="search_view_id" ref="student_search"/>
+        'search_default_group_class':1
+-->
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first student here.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="eagleedu_student_submenu" name="Human"
+            parent="eagleedu_main_menu_admission" action="action_eagleedu_student"/>
+
+
+</eagle>

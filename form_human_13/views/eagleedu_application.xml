@@ -1,0 +1,166 @@
+<eagle>
+
+    <record id="view_eagleedu_application_tree" model="ir.ui.view">
+            <field name="name">eagleedu.application.tree</field>
+            <field name="model">eagleedu.application</field>
+            <field name="arch" type="xml">
+                <tree string="Application">
+                    <field name="application_no"/>
+                    <field name="name"/>
+                    <field name="st_father_name"/>
+                    <field name="st_mother_name"/>
+                    <field name="email"/>
+                    <field name="mobile"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_eagleedu_application_form" model="ir.ui.view">
+        <field name="name">eagleedu.application.form</field>
+        <field name="model">eagleedu.application</field>
+        <field name="arch" type="xml">
+            <form string="Human Application">
+                <header>
+                   <button name="send_to_verify" type="object" class="oe_highlight"
+                     string="Send for Verification" groups="base.group_user"
+                     help="Click to send the application for verification purpose"
+                     states="draft"/>
+                   <button name="application_verify" type="object" class="oe_highlight"
+                     string="Verify Application" groups="base.group_user"
+                     help="Click to verify the application and documents"
+                     states="verification"/>
+                   <button name="create_student" string="Create Human"
+                     type="object" class="oe_highlight"
+                     help="Click to create Human info"
+                     states="approve"/>
+                     <field name="state" widget="statusbar" statusbar_visible="draft,verify,approve,done"/>
+                 </header>
+            <sheet>
+               <div class="oe_button_box" name="button_box">
+                   <button name="student_documents" type="object" widget="statinfo"
+                        class="oe_stat_button" icon="fa-calendar" string="Documents">
+                   </button>
+               </div>
+               <field name="image_1920" widget="image" class="oe_left oe_avatar" />
+               <div class="oe_title">
+                  <h3>
+                    <label for ='application_no'/>
+                    <field name="application_no" attrs="{'invisible': [('application_no', '!=','')]}"/>
+                    <field name="application_no" />
+                  </h3>
+                  <h2>
+                      <table>
+                        <tr>
+                          <td style="padding-right:10px;"><field name="name" placeholder="Name" required="1"/></td>
+                        </tr>
+                      <tr>
+                       <td style="padding-right:10px;"><field name="st_name_b" placeholder="নাম " required="0"/></td>
+                      </tr>
+                   </table>
+                  </h2>
+                </div>
+                 <group>
+                  <group string="Basic Details">
+                    <field name="date_of_birth"/>
+                    <field name="application_date"/>
+                    <field name="st_gender"/>
+                    <field name="st_blood_group"/>
+                    <field name="religious_id"/>
+                    <!--<field name="st_passport_no"/>-->
+                  </group>
+
+
+                  <group string="Year Information">
+                    <field name="academic_year"/>
+                  </group>
+
+
+                  <group string="Human Information">
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                  </group>
+
+                  <group string="Parent's Information">
+                    <field name="st_father_name"/>
+                    <field name="st_mother_name"/>
+                  </group>
+
+                  <group string="Present Address">
+                    <field name="house_no"/>
+                    <field name="road_no"/>
+                    <field name="post_office"/>
+                    <field name="city"/>
+                    <field name="bd_division_id"/>
+                    <field name="country_id"/>
+                  </group>
+
+                  <group string="Permanent Address">
+                    <field name="per_village"/>
+                    <field name="per_po"/>
+                    <field name="per_ps"/>
+                    <field name="per_dist_id"/>
+                    <field name="per_bd_division_id"/>
+                    <field name="country_id"/>
+                  </group>
+                 </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="seq_eagleedu_application" model="ir.sequence">
+        <field name="name">Application Seq</field>
+        <field name="code">eagleedu.application</field>
+        <field name="prefix">HA%(year)s</field>
+        <field name="number_increment">1</field>
+        <field name="padding">4</field>
+    </record>
+
+
+        <record id="application_search" model="ir.ui.view">
+        <field name="name">Human Application</field>
+        <field name="model">eagleedu.application</field>
+        <field name="arch" type="xml">
+            <search string="Search Application">
+                <!--<field name="admission_class"/>-->
+                <field name="application_no"/>
+                <field name="st_gender"/>
+                <filter string="New Application" name="new_application" domain="[('state','!=','done')]"/>
+                <filter string="Draft" name="draft_filter" domain="[('state','=','draft')]"/>
+                <filter string="Done" name="active" domain="[('state','=','done')]"/>
+                <group expand='0' string='Group by...'>
+<!--
+                    <filter string='Year Information' icon="fa-user" domain="[]" context="{'group_by' : 'academic_year'}"/>
+                    <filter string='Gender' icon="fa-genderless" domain="[]" context="{'group_by' : 'st_gender'}"/>
+                    <filter string='Religion' icon="fa-pencil-square-o" domain="[]" context="{'group_by' : 'religious_id'}"/>
+-->
+               </group>
+           </search>
+        </field>
+    </record>
+
+
+
+    <record id="action_eagleedu_application" model="ir.actions.act_window">
+        <field name="name">Human Application</field>
+        <field name="res_model">eagleedu.application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="search_view_id" ref="application_search"/>
+        <field name="context">{'search_default_new_application': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first Human application here.
+            </p>
+        </field>
+    </record>
+    <menuitem id = "eagleedu_menu_root" name = "Human" sequence="1" web_icon="form_human_13,static/description/icon.png"/>
+    <menuitem id="eagleedu_main_menu_admission" name="Admission" parent="eagleedu_menu_root"/>
+
+    <menuitem id = "eagleedu_menu_application" name = "Application"
+              parent="eagleedu_main_menu_admission" action="action_eagleedu_application"/>
+
+
+</eagle>
