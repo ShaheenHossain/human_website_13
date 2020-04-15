@@ -66,14 +66,7 @@
                     <field name="st_gender"/>
                     <field name="st_blood_group"/>
                     <field name="religious_id"/>
-                    <!--<field name="st_passport_no"/>-->
                   </group>
-
-
-                  <group string="Year Information">
-                    <field name="academic_year"/>
-                  </group>
-
 
                   <group string="Human Information">
                     <field name="email"/>
@@ -130,11 +123,6 @@
                 <filter string="Draft" name="draft_filter" domain="[('state','=','draft')]"/>
                 <filter string="Done" name="active" domain="[('state','=','done')]"/>
                 <group expand='0' string='Group by...'>
-<!--
-                    <filter string='Year Information' icon="fa-user" domain="[]" context="{'group_by' : 'academic_year'}"/>
-                    <filter string='Gender' icon="fa-genderless" domain="[]" context="{'group_by' : 'st_gender'}"/>
-                    <filter string='Religion' icon="fa-pencil-square-o" domain="[]" context="{'group_by' : 'religious_id'}"/>
--->
                </group>
            </search>
         </field>

@@ -10,7 +10,6 @@
                 <field name="name"/>
                 <field name="st_father_name"/>
                 <field name="st_mother_name"/>
-                <field name="academic_year"/>
             </tree>
         </field>
     </record>
@@ -61,9 +60,7 @@
                         <page string="Human Details">
 
                             <separator string="Basic Details"/>
-                              <group>
-                                <field name="academic_year" string="Year Information"/>
-                              </group>
+
                             <separator string="Human Information"/>
                                 <group>
                                     <field name="date_of_birth"/>
@@ -78,13 +75,7 @@
                             <separator string="Parent's Information"/>
                                 <group>
                                     <field name="st_father_name"/>
-                                    <!--<field name="st_father_name_b"/>
-                                    <field name="st_father_occupation"/>
-                                    <field name="father_mobile"/>-->
                                     <field name="st_mother_name"/>
-                                    <!--<field name="st_mother_name_b"/>
-                                    <field name="st_mother_occupation"/>
-                                    <field name="mother_mobile"/>-->
                                 </group>
 
                                <group string="Present Address">
@@ -142,10 +133,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">form</field>
         <field name="view_mode">tree,form</field>
-<!--
-        <field name="search_view_id" ref="student_search"/>
-        'search_default_group_class':1
--->
         <field name="context">{'create': False}</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">

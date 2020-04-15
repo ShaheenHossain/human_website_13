@@ -180,26 +180,75 @@ class ProductTemplate(models.Model):
     _name = 'product.template'
     _mail_post_access = 'read'
 
+    partner_id = fields.Many2one(
+        'res.partner', string='Partner', required=True, ondelete="cascade")
+    adm_no = fields.Char(string="Admission No.", readonly=True)
+    image_1920 = fields.Binary(string='Image', help="Provide the image of the Human")
+    application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
+                       index=True, default=lambda self: _('New'))
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
+
+    date_of_birth = fields.Date(string="Date Of birth")
+    st_gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
+                                string='Gender', required=False, track_visibility='onchange')
+    st_blood_group = fields.Selection([('a+', 'A+'), ('a-', 'A-'), ('b+', 'B+'), ('o+', 'O+'), ('o-', 'O-'),
+                                    ('ab-', 'AB-'), ('ab+', 'AB+')], string='Blood Group', track_visibility='onchange')
+    application_no = fields.Char(string='Registration No', required=True, copy=False, readonly=True,
+                       index=True, default=lambda self: _('New'))
+    registration_date = fields.Datetime('Registration Date', default=lambda
+        self: fields.datetime.now())  # , default=fields.Datetime.now, required=True
+
+    st_father_name = fields.Char(string="Father's Name", help="Proud to say my father is", required=False)
+    st_mother_name = fields.Char(string="Mother's Name", help="Proud to say my mother is", required=False)
+
+    house_no = fields.Char(string='House No.', help="Enter the House No.")
+    road_no = fields.Char(string='Area/Road No.', help="Enter the Area or Road No.")
+    post_office = fields.Char(string='Post Office', help="Enter the Post Office Name")
+    city = fields.Char(string='City', help="Enter the City name")
+    bd_division_id = fields.Many2one('eagleedu.bddivision', string= 'Division')
+    country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19)
+
+    if_same_address = fields.Boolean(string="Permanent Address same as above", default=True)
+    per_village = fields.Char(string='Village Name', help="Enter the Village Name")
+    per_po = fields.Char(string='Post Office Name', help="Enter the Post office Name ")
+    per_ps = fields.Char(string='Police Station', help="Enter the Police Station Name")
+    per_dist_id = fields.Many2one('eagleedu.bddistrict', string='District', help="Enter the City of District name")
+    per_bd_division_id = fields.Many2one('eagleedu.bddivision', string='Division/Province', help="Enter the Division name")
+    per_country_id = fields.Many2one('res.country', string='Country', ondelete='restrict', default=19)
+
+    religious_id = fields.Many2one('eagleedu.religious', string="Religious", help="My Religion is ")
+    email = fields.Char(string="Email", help="Enter E-mail id for contact purpose")
+    mobile = fields.Char(string="Mobile", help="Enter Mobile num for contact purpose")
+    nationality = fields.Many2one('res.country', string='Nationality', ondelete='restrict',default=19,
+                                  help="Select the Nationality")
+    state = fields.Selection([('draft', 'Draft'), ('approve', 'Approve'), ('done', 'Done')],
+                              string='Status', required=True, default='draft', track_visibility='onchange')
+
+
+
+
+
+
     website_description = fields.Html('Description for the website', sanitize_attributes=False, translate=html_translate)
     alternative_product_ids = fields.Many2many(
         'product.template', 'product_alternative_rel', 'src_id', 'dest_id',
-        string='Alternative Products', help='Suggest alternatives to your customer (upsell strategy). '
-                                            'Those products show up on the product page.')
+        string='Alternative', help='Suggest alternatives for all (all strategy). '
+                                            'Those show up on the page.')
     accessory_product_ids = fields.Many2many(
-        'product.product', 'product_accessory_rel', 'src_id', 'dest_id', string='Accessory Products',
-        help='Accessories show up when the customer reviews the cart before payment (cross-sell strategy).')
+        'product.product', 'product_accessory_rel', 'src_id', 'dest_id', string='Others ',
+        help='Others show up when the reviews (all strategy).')
     website_size_x = fields.Integer('Size X', default=1)
     website_size_y = fields.Integer('Size Y', default=1)
     website_style_ids = fields.Many2many('product.style', string='Styles')
-    website_sequence = fields.Integer('Website Sequence', help="Determine the display order in the Website E-commerce",
+    website_sequence = fields.Integer('Website Sequence', help="Determine the display in the Website",
                                       default=lambda self: self._default_website_sequence())
     public_categ_ids = fields.Many2many(
         'product.public.category', relation='product_public_category_product_template_rel',
-        string='Website Product Category',
+        string='Website Category',
         help="This will be available in each mentioned category. > "
-             "Customize and enable 'eCommerce categories' to view all eCommerce categories.")
+             "Customize and enable 'eCommerce categories' to view all categories.")
 
-    product_template_image_ids = fields.One2many('product.image', 'product_tmpl_id', string="Extra Product Media", copy=True)
+    product_template_image_ids = fields.One2many('product.image', 'product_tmpl_id', string="Extra Media", copy=True)
 
     def _has_no_variant_attributes(self):
         """Return whether this `product.template` has at least one no_variant

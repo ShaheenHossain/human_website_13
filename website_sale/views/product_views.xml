@@ -90,7 +90,7 @@
             <div name="button_box" position="inside">
                 <field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>
             </div>
-            <xpath expr="//page[@name='sales']" position="after">
+            <xpath expr="//page[@name='general_information']" position="before">
                 <page name="info" string="Info for human" attrs="{'invisible': [('sale_ok','=',False)]}">
                     <group name="info">
                         <group string="Manush">
@@ -101,6 +101,9 @@
                             <field name="alternative_product_ids" widget="many2many_tags" domain="[('id', '!=', active_id)]"/>
                             <field name="accessory_product_ids" widget="many2many_tags"/>
                             <field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
+                            <field name="st_father_name"/>
+                            <field name="st_mother_name"/>
+                            <field name="st_mother_name"/>
                         </group>
                     </group>
                     <group name="product_template_images" string="Extra Media">
