@@ -103,7 +103,27 @@
                             <field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
                             <field name="st_father_name"/>
                             <field name="st_mother_name"/>
-                            <field name="st_mother_name"/>
+                            <field name="mobile"/>
+                            <field name="date_of_birth"/>
+                            <field name="st_gender"/>
+                            <field name="st_blood_group"/>
+                            <field name="application_no"/>
+                        </group>
+                        <group>
+                            <field name="house_no"/>
+                            <field name="road_no"/>
+                            <field name="post_office"/>
+                            <field name="city"/>
+                            <field name="bd_division_id"/>
+                            <field name="country_id"/>
+                            <field name="per_village"/>
+                            <field name="per_po"/>
+                            <field name="per_ps"/>
+                            <field name="per_dist_id"/>
+                            <field name="per_bd_division_id"/>
+                            <field name="per_country_id"/>
+                            <field name="religious_id"/>
+                            <field name="email"/>
                         </group>
                     </group>
                     <group name="product_template_images" string="Extra Media">
