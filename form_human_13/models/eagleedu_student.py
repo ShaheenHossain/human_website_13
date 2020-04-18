@@ -84,6 +84,7 @@ class EagleeduHuman(models.Model):
                                   help="Select the Nationality")
     state = fields.Selection([('draft', 'Draft'), ('approve', 'Approve'), ('done', 'Done')],
                               string='Status', required=True, default='draft', track_visibility='onchange')
+    description_sale = fields.Text(string="Description", help="Enter description purpose")
 
     def send_to_publish(self):
         """Return the state to done if the documents are perfect"""
@@ -120,6 +121,7 @@ class EagleeduHuman(models.Model):
                 'per_country_id': rec.per_country_id.id,
                 'religious_id': rec.religious_id.id,
                 'application_no': rec.application_no,
+                'description_sale': rec.description_sale,
             }
             student = self.env['product.template'].create(values)
             rec.write({

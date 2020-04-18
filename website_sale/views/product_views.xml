@@ -124,6 +124,7 @@
                             <field name="per_country_id"/>
                             <field name="religious_id"/>
                             <field name="email"/>
+                            <field name="description_sale"/>
                         </group>
                     </group>
                     <group name="product_template_images" string="Extra Media">
@@ -276,6 +277,7 @@
                                     <small><field name="name"/></small>
                                 </h4>
                             </div>
+
                             <!-- below 100 Kb: good -->
                             <t t-if="record.image_1920.raw_value.length &lt; 100*1000">
                                 <t t-set="size_status" t-value="'badge-success'"/>

@@ -66,6 +66,7 @@ class EagleeduApplication(models.Model):
     email = fields.Char(string="Email", help="Enter E-mail id for contact purpose")
     phone = fields.Char(string="Phone", help="Enter Phone no. for contact purpose")
     mobile = fields.Char(string="Mobile", help="Enter Mobile num for contact purpose")
+    description_sale = fields.Text(string="Description", help="Enter description purpose")
     nationality = fields.Many2one('res.country', string='Nationality', ondelete='restrict',default=19,
                                   help="Select the Nationality")
 
@@ -122,6 +123,7 @@ class EagleeduApplication(models.Model):
                 'per_country_id': rec.per_country_id.id,
                 'religious_id': rec.religious_id.id,
                 'application_no': rec.application_no,
+                'description_sale': rec.description_sale,
             }
             student = self.env['eagleedu.student'].create(values)
             rec.write({

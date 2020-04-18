@@ -77,15 +77,14 @@
                                     <field name="st_father_name"/>
                                     <field name="st_mother_name"/>
                                 </group>
-
-                               <group string="Present Address">
+                                <group string="Present Address">
                                 <field name="house_no"/>
                                 <field name="road_no"/>
                                 <field name="post_office"/>
                                 <field name="city"/>
                                 <field name="bd_division_id"/>
                                 <field name="country_id"/>
-                              </group>
+                                </group>
 
                               <group string="Permanent Address">
                                 <field name="per_village"/>
@@ -94,6 +93,9 @@
                                 <field name="per_dist_id"/>
                                 <field name="per_bd_division_id"/>
                                 <field name="country_id"/>
+                              </group>
+                              <group string="Description">
+                                <field name="description_sale"/>
                               </group>
                         </page>
                     </notebook>

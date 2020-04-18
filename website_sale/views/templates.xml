@@ -161,6 +161,7 @@
                 <div class="p-2 o_wsale_product_information_text">
                     <h6 class="o_wsale_products_item_title">
                         <a itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+<!--                        <a itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />-->
                         <a role="button" t-if="not product.website_published" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">Unpublished</a>
                     </h6>
                     <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
@@ -455,8 +456,6 @@
 
     <template id="products_list_view" inherit_id="website_sale.products" active="False" customize_show="True" name="List View (by default)">
         <xpath expr="//div[@id='products_grid']" position="after">
-            <!-- Nothing to do, this view is only meant to allow the server -->
-            <!-- to know if the list view layout should be used -->
         </xpath>
     </template>
 
@@ -467,6 +466,7 @@
         </xpath>
     </template>
 
+    <!--Product main template  -->
     <template id="product" name="Manush" track="1">
 
         <t t-set="combination" t-value="product._get_first_possible_combination()"/>
@@ -508,6 +508,9 @@
                         </div>
                         <div class="col-md-6 col-xl-4" id="product_details">
                             <h1 itemprop="name" t-field="product.name">Name</h1>
+                            <h5 itemprop="st_father_name" t-field="product.st_father_name" string="Father's Name :">Father Name: </h5>
+                            <h5 itemprop="st_mother_name" t-field="product.st_mother_name" string="Mothers's Name">Mother Name: </h5>
+                            <h5 itemprop="mobile" t-field="product.mobile" string="Mobile :">Mobile: </h5>
                             <span itemprop="url" style="display:none;" t-esc="product.website_url"/>
                             <form t-if="product._is_add_to_cart_possible()" action="/info/cart/update" method="POST">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
@@ -531,7 +534,7 @@
                             </form>
                             <p t-elif="not product.active" class="alert alert-warning">No longer available.</p>
                             <p t-else="" class="alert alert-warning">No valid combination.</p>
-                            <hr t-if="product.description_sale" />
+                            <hr t-if="product.description_sale"/>
                             <div>
                                 <p t-field="product.description_sale" class="text-muted mt-3" placeholder="A short description that will also appear on documents." />
                                 <div id="product_attributes_simple">
@@ -557,6 +560,7 @@
         </t>
     </template>
 
+    <!--    magnify product-->
     <template inherit_id='website_sale.product' id="product_picture_magnify" customize_show="True" name="Image Zoom">
         <xpath expr='//div[hasclass("js_sale")]' position='attributes'>
             <attribute name="class" separator=" " add="ecom-zoomable zoomeagle-next" />
@@ -571,6 +575,7 @@
         </xpath>
     </template>
 
+    <!--recommended products -->
     <template id="recommended_products" inherit_id="website_sale.product" customize_show="True" name="Alternative">
         <xpath expr="//div[@id='product_full_description']" position="after">
             <div class="container mt32" t-if="product.alternative_product_ids">
@@ -596,6 +601,7 @@
         </xpath>
     </template>
 
+    <!--Recently viewed product -->
     <template id="recently_viewed_products_product" inherit_id="website_sale.product" active="True" customize_show="True" name="Recently Viewed " priority="16">
         <xpath expr="//div[@t-field='product.website_description']" position="after">
             <t t-call="website_sale.s_products_recently_viewed"/>
@@ -621,6 +627,7 @@
         </xpath>
     </template>
 
+     <!--product quantity-->
     <template id="product_quantity" inherit_id="website_sale.product" customize_show="True" name="Select Quantity">
       <xpath expr="//a[@id='add_to_cart']" position="before">
         <div class="css_quantity input-group" contenteditable="false">
@@ -663,21 +670,11 @@
                }'/>
           </h4>
       </div>
-    </template>
+    </template>  <!--Product price-->
 
+    <!--    Product variants -->
     <template id="product_variants" inherit_id="website_sale.product" active="False" customize_show="True" name="List View of Variants">
         <xpath expr="//t[@t-placeholder='select']" position="replace">
-            <!--
-                Using this setting with dynamic variants is not supported.
-                Indeed the variants that have yet to exist will not show on the
-                list and will never be selectable to be created...
-
-                We also don't use the feature with no_variant because these
-                attributes have to be selected manually.
-
-                Finally we don't use the feature with is_custom values because
-                they need to be set by the user.
-            -->
             <t t-if="not product.has_dynamic_attributes() and not product._has_no_variant_attributes() and not product._has_is_custom_values()">
                 <t t-set="attribute_exclusions" t-value="product._get_attribute_exclusions()"/>
                 <t t-set="filtered_sorted_variants" t-value="product._get_possible_variants_sorted()"/>
@@ -735,7 +732,7 @@
                 </div>
             </div>
         </div>
-    </template>
+    </template>  <!--review order-->
 
     <template id="extra_info" name="Checkout Extra Info">
         <t t-call="website.layout">
@@ -796,8 +793,9 @@
             </div>
             <div class="oe_structure" id="oe_structure_website_sale_extra_info_1"/>
         </t>
-    </template>
+    </template>  <!--extra info not understand properly-->
 
+    <!--extra info wizard-step30 not understand properly-->
     <template id="extra_info_option" name="Extra Step Option" inherit_id="wizard_checkout" active="False" customize_show="True">
         <!-- Add a "flag element" to trigger style variation -->
         <xpath expr="//div[hasclass('wizard')]/div" position="before">
@@ -814,14 +812,14 @@
         </xpath>
     </template>
 
-    <!-- We use this template where we want to give the user a link to the product of a sale order line. -->
+    <!-- give the user a link to the product of a sale order line. -->
     <template id="cart_line_product_link" name="Line Link">
         <a t-att-href="line.product_id.website_url">
             <t t-raw="0"/>
         </a>
     </template>
 
-    <!-- This template displays all the lines following the first one on the description of the sale order line, with a muted style. For typical products this content will be the product description_sale. -->
+    <!-- description of the sale order line, with a muted style. -->
     <template id="cart_line_description_following_lines" name="Description Following Lines">
         <div t-if="line.get_description_following_lines()" t-attf-class="text-muted {{div_class}} small">
             <t t-foreach="line.get_description_following_lines()" t-as="name_line">
@@ -840,7 +838,6 @@
             <thead>
                 <tr>
                     <th class="td-img">Manush</th>
-                    <th></th>
                     <th class="text-center td-qty">Quantity</th>
                     <th class="text-center td-price">Amount</th>
                     <th class="text-center td-action"></th>
@@ -900,7 +897,7 @@
             </tbody>
         </table>
 
-    </template>
+    </template> <!-- Cart Line -->
 
     <template id="cart" name="Details Cart">
         <t t-call="website.layout">
@@ -961,7 +958,7 @@
                 <div class="oe_structure" id="oe_structure_website_sale_cart_2"/>
             </div>
         </t>
-    </template>
+    </template> <!-- Details in cart -->
 
     <!-- this template is the one when we mouse over "My Cart" on the top right -->
     <template id="cart_popover" name="Cart Popover">
@@ -997,6 +994,7 @@
         </t>
     </template>
 
+    <!-- Alternative product or sugested product -->
     <template id="suggested_products_list" inherit_id="website_sale.cart_lines" customize_show="True" name="Alternative">
         <xpath expr="//table[@id='cart_products']" position="after">
             <h5 class='text-muted js_cart_lines' t-if="suggested_products">Suggested:</h5>
@@ -1047,7 +1045,7 @@
         <t t-if="request.params.get('code_not_available')" name="code_not_available">
             <div class="alert alert-danger text-left" role="alert">This promo code is not available.</div>
         </t>
-    </template>
+    </template> <!-- Coupon form  -->
 
     <template id="checkout">
         <t t-call="website.layout">
@@ -1126,7 +1124,7 @@
                 </div>
             </div>
         </t>
-    </template>
+    </template> <!-- Checkout -->
 
     <template id="address_kanban" name="Kanban address">
             <form action="/info/checkout" method="POST" class="d-none">
@@ -1155,7 +1153,7 @@
                     </span>
                 </div>
             </div>
-    </template>
+    </template> <!-- Small Address -->
 
     <template id="address" name="Address Management">
         <t t-set="no_footer">1</t>
@@ -1305,7 +1303,7 @@
                 </div>
             </div>
         </t>
-    </template>
+    </template> <!-- Billing Address -->
 
     <template id="address_b2b" inherit_id="address" name="Show b2b fields" customize_show="True">
         <xpath expr="//div[@id='div_phone']" position="after">
@@ -1313,15 +1311,23 @@
             <t t-if="mode == ('new', 'billing') or (mode == ('edit', 'billing') and (can_edit_vat or 'vat' in checkout and checkout['vat']))">
                 <div t-attf-class="form-group #{error.get('company_name') and 'o_has_error' or ''} col-lg-6">
                     <label class="col-form-label font-weight-normal label-optional" for="company_name">Company Name</label>
-                    <input type="text" name="company_name" t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}" t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']" t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None" t-att-title="'Changing company name is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None" />
+                    <input type="text" name="company_name" t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}"
+                           t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name'
+                           in checkout and checkout['company_name']" t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not
+                           can_edit_vat else None" t-att-title="'Changing company name is not allowed once document(s) have been issued
+                           for your account. Please contact us directly for this operation.' if 'vat' in checkout and checkout['vat']
+                           and not can_edit_vat else None" />
                 </div>
                 <div t-attf-class="form-group #{error.get('vat') and 'o_has_error' or ''} col-lg-6 div_vat">
                     <label class="col-form-label font-weight-normal label-optional" for="vat">TIN / VAT </label>
-                    <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in checkout and checkout['vat']" t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None" t-att-title="'Changing VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None" />
+                    <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in
+                    checkout and checkout['vat']" t-att-readonly="'1' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None"
+                           t-att-title="'Changing VAT number is not allowed once document(s) have been issued for your account. Please contact
+                           us directly for this operation.' if 'vat' in checkout and checkout['vat'] and not can_edit_vat else None" />
                 </div>
             </t>
         </xpath>
-    </template>
+    </template> <!-- Company or Shipping address -->
 
     <template id="payment" name="Payment">
         <t t-call="website.layout">
@@ -1403,8 +1409,7 @@
                 <div class="oe_structure" id="oe_structure_website_sale_payment_2"/>
             </div>
         </t>
-    </template>
-
+    </template> <!-- Payment acquire  -->
 
     <template id="short_cart_summary" name="Short Cart right column">
         <div class="card js_cart_summary" t-if="website_sale_order and website_sale_order.website_order_line" >
@@ -1421,12 +1426,8 @@
                 </div>
             </div>
         </div>
-    </template>
+    </template> <!-- My Cart short details -->
 
-    <!-- This template is the one present on the right during the payment process.
-        Here it is important to not show too much information to the user, because we want him to pay!
-        We shouldn't display link to products or long descriptions.
-    -->
     <template id="cart_summary" name="Cart right column">
         <div class="card">
             <div class="card-body p-xl-0">
@@ -1474,8 +1475,9 @@
                 </div>
             </div>
         </div>
-    </template>
+    </template> <!-- My Cart details -->
 
+    <!-- Accept sale term and condition -->
     <template id="payment_sale_note" inherit_id="payment" name="Accept Terms &amp; Conditions" customize_show="True" active="False">
         <xpath expr="//div[@id='payment_method'][hasclass('js_payment')]" position="after">
             <div class="custom-control custom-checkbox float-right mt-2 oe_accept_cgv_button">
@@ -1552,7 +1554,7 @@
                 <div class="oe_structure" id="oe_structure_website_sale_confirmation_3"/>
             </div>
         </t>
-    </template>
+    </template> <!-- Order confirmation -->
 
     <template id="total">
         <div id="cart_total" t-att-class="extra_class or ''" t-if="website_sale_order and website_sale_order.website_order_line">
@@ -1583,7 +1585,7 @@
                   </tr>
             </table>
         </div>
-    </template>
+    </template> <!-- Total Amount -->
 
     <template id="reduction_code" inherit_id="website_sale.total" customize_show="True" name="Promo Code">
         <xpath expr="//div[@id='cart_total']//table/tr[last()]" position="after">
@@ -1601,7 +1603,7 @@
                 </td>
             </tr>
         </xpath>
-    </template>
+    </template> <!-- Promo code -->
 
     <template id="payment_confirmation_status">
         <div class="oe_website_sale_tx_status mt-3" t-att-data-order-id="order.id">
@@ -1643,18 +1645,18 @@
                 </div>
             </div>
         </div>
-    </template>
+    </template> <!-- Payment method not necessary for this site -->
 
     <template id="website_sale.brand_promotion" inherit_id="website.brand_promotion">
         <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace">
             <t t-call="web.brand_promotion_message">
                 <t t-set="_message">
-                    The #1 <a target="_blank" href="http://www.eagle.com/page/e-commerce?utm_source=db&amp;utm_medium=website">Open Source eCommerce</a>
+                    A Complete <a target="_blank" href="http://www.eagle-erp.com">Business Solution</a>
                 </t>
                 <t t-set="_utm_medium">website</t>
             </t>
         </xpath>
-    </template>
+    </template> <!-- Eagle Branding footer -->
 
     <!-- User Navbar -->
     <template id="user_navbar_inherit_website_sale" inherit_id="website.user_navbar">
@@ -1716,7 +1718,7 @@
               <div class="oe_structure" id="oe_structure_website_sale_terms_2"/>
           </div>
         </t>
-    </template>
+    </template>  <!-- Sale Terms and condition -->
 
     <template id="website_sale.info_product_carousel" name="Carousel">
         <t t-set="product_images" t-value="product_variant._get_images() if product_variant else product._get_images()"/>
@@ -1751,9 +1753,7 @@
             </div>
         </div>
 
-    </template>
-
-
+    </template> <!-- Product Carosel -->
 
     <template
         id="hide_products_prices"
@@ -1764,7 +1764,8 @@
         priority="23"
     >
         <xpath expr="//div[hasclass('product_price')]" position="replace" />
-    </template>
+    </template> <!-- Hide Price website_sale.product_item -->
+
     <template
         id="hide_add_to_cart"
         inherit_id="website_sale.product"
@@ -1778,7 +1779,8 @@
                 name="class"
             >btn btn-primary btn-lg mt8 js_check_product a-submit o_hidden</attribute>
         </a>
-    </template>
+    </template> <!-- Hide add to cart -->
+
     <template
         id="hide_price"
         inherit_id="website_sale.product"
@@ -1792,7 +1794,8 @@
             <t t-set="ul_class" t-value="'nav-stacked'" />
             <t t-set="hide_price" t-value="1" />
         </xpath>
-    </template>
+    </template> <!-- Hide Price website_sale.product -->
+
     <template id="hide_variants_price_badge" inherit_id="website_sale.product_variants">
         <xpath expr="//span[hasclass('badge')]" position="replace">
             <span class="badge" t-if="diff_price and not hide_price">
@@ -1805,6 +1808,6 @@
                 </span>
             </span>
         </xpath>
-    </template>
+    </template> <!-- Hide varieants Price -->
 
 </eagle>

@@ -1111,6 +1111,9 @@ class WebsiteSale(http.Controller):
                 'id': line.order_id.id,
                 'sku': product.barcode or product.id,
                 'name': product.name or '-',
+                'name': product.st_father_name or '-', #for auto update website publish the provided information
+                'name': product.st_mother_name or '-',
+                'name': product.mobile or '-',
                 'category': product.categ_id.name or '-',
                 'price': line.price_unit,
                 'quantity': line.product_uom_qty,

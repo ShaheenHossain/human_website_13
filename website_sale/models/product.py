@@ -224,6 +224,7 @@ class ProductTemplate(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('approve', 'Approve'), ('done', 'Done')],
                               string='Status', required=True, default='draft', track_visibility='onchange')
 
+    description_sale = fields.Text(string="Description", help="Enter description")
 
 
 
@@ -419,6 +420,10 @@ class ProductTemplate(models.Model):
         res['default_opengraph']['og:title'] = res['default_twitter']['twitter:title'] = self.name
         res['default_opengraph']['og:image'] = res['default_twitter']['twitter:image'] = self.env['website'].image_url(self, 'image_1024')
         res['default_meta_description'] = self.description_sale
+        # res['default_meta_description'] = res['description_sale']['product.template'] = self.product.name
+        #description_sale = self.env['product.template'].create(values)
+        #student = self.env['product.template'].create(values)
+
         return res
 
     def _compute_website_url(self):

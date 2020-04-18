@@ -86,15 +86,7 @@
                     <field name="city"/>
                     <field name="bd_division_id"/>
                     <field name="country_id"/>
-                  </group>
-
-                  <group string="Permanent Address">
-                    <field name="per_village"/>
-                    <field name="per_po"/>
-                    <field name="per_ps"/>
-                    <field name="per_dist_id"/>
-                    <field name="per_bd_division_id"/>
-                    <field name="country_id"/>
+                    <field name="description_sale"/>
                   </group>
                  </group>
                 </sheet>
@@ -110,8 +102,7 @@
         <field name="padding">4</field>
     </record>
 
-
-        <record id="application_search" model="ir.ui.view">
+    <record id="application_search" model="ir.ui.view">
         <field name="name">Human Application</field>
         <field name="model">eagleedu.application</field>
         <field name="arch" type="xml">
@@ -127,8 +118,6 @@
            </search>
         </field>
     </record>
-
-
 
     <record id="action_eagleedu_application" model="ir.actions.act_window">
         <field name="name">Human Application</field>
