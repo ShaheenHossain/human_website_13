@@ -103,6 +103,8 @@ class EagleeduHuman(models.Model):
                 'application_no': rec.id,
                 'st_father_name': rec.st_father_name,
                 'st_mother_name': rec.st_mother_name,
+                'mobile': rec.mobile,
+                'email': rec.email,
                 'st_gender': rec.st_gender,
                 'date_of_birth': rec.date_of_birth,
                 'st_blood_group': rec.st_blood_group,

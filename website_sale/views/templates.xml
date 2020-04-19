@@ -175,7 +175,7 @@
             </div>
         </form>
     </template>
-
+    <!--    to do products description-->
     <template id="products_description" inherit_id="website_sale.products_item" active="False" customize_show="True" name="Description">
         <xpath expr="//*[hasclass('product_price')]" position="after">
             <div class="oe_subdescription" contenteditable="false">
@@ -289,7 +289,8 @@
         </t>
     </template>
 
-    <template id="sort" inherit_id="website_sale.products" customize_show="True" name="Show Sort by">
+<!--    Hide sort-->
+<!-- <template id="sort" inherit_id="website_sale.products" customize_show="True" name="Show Sort by">
         <xpath expr="//div[hasclass('products_pager')]/t[@t-call][last()]" position="after">
             <t t-set="list_price_desc_label">Category: High to Low</t>
             <t t-set="list_price_asc_label">Category : Low to High</t>
@@ -323,7 +324,7 @@
                 </div>
             </div>
         </xpath>
-    </template>
+    </template>  -->
 
     <template id="add_grid_or_list_option" inherit_id="website_sale.products" active="True" customize_show="True" name="Grid or List button">
         <xpath expr="//div[hasclass('products_pager')]/t[@t-call][last()]" position="after">
@@ -466,7 +467,7 @@
         </xpath>
     </template>
 
-    <!--Product main template  -->
+    <!--Product main template  **********  -->
     <template id="product" name="Manush" track="1">
 
         <t t-set="combination" t-value="product._get_first_possible_combination()"/>

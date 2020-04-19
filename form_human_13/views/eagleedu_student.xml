@@ -76,6 +76,8 @@
                                 <group>
                                     <field name="st_father_name"/>
                                     <field name="st_mother_name"/>
+                                    <field name="mobile"/>
+                                    <field name="email"/>
                                 </group>
                                 <group string="Present Address">
                                 <field name="house_no"/>

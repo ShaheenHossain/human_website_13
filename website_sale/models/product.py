@@ -272,33 +272,12 @@ class ProductTemplate(models.Model):
         return any(v.is_custom for v in self.valid_product_template_attribute_line_ids.product_template_value_ids._only_active())
 
     def _get_possible_variants_sorted(self, parent_combination=None):
-        """Return the sorted recordset of variants that are possible.
-
-        The order is based on the order of the attributes and their values.
-
-        See `_get_possible_variants` for the limitations of this method with
-        dynamic or no_variant attributes, and also for a warning about
-        performances.
-
-        :param parent_combination: combination from which `self` is an
-            optional or accessory product
-        :type parent_combination: recordset `product.template.attribute.value`
-
-        :return: the sorted variants that are possible
-        :rtype: recordset of `product.product`
-        """
         self.ensure_one()
-
         def _sort_key_attribute_value(value):
             # if you change this order, keep it in sync with _order from `product.attribute`
             return (value.attribute_id.sequence, value.attribute_id.id)
 
         def _sort_key_variant(variant):
-            """
-                We assume all variants will have the same attributes, with only one value for each.
-                    - first level sort: same as "product.attribute"._order
-                    - second level sort: same as "product.attribute.value"._order
-            """
             keys = []
             for attribute in variant.product_template_attribute_value_ids.sorted(_sort_key_attribute_value):
                 # if you change this order, keep it in sync with _order from `product.attribute.value`
@@ -309,13 +288,6 @@ class ProductTemplate(models.Model):
         return self._get_possible_variants(parent_combination).sorted(_sort_key_variant)
 
     def _get_combination_info(self, combination=False, product_id=False, add_qty=1, pricelist=False, parent_combination=False, only_template=False):
-        """Override for website, where we want to:
-            - take the website pricelist if no pricelist is set
-            - apply the b2b/b2c setting to the result
-
-        This will work when adding website_id to the context, which is done
-        automatically when called from routes with website=True.
-        """
         self.ensure_one()
 
         current_website = False
