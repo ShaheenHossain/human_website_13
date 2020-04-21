@@ -1111,8 +1111,16 @@ class WebsiteSale(http.Controller):
                 'id': line.order_id.id,
                 'sku': product.barcode or product.id,
                 'name': product.name or '-',
-                'name': product.st_father_name or '-', #for auto update website publish the provided information
+                'name': product.house_no or '-', #for auto update website publish the provided information
+                'name': product.road_no or '-', #for auto update website publish the provided information
+                'name': product.post_office or '-',
+                'name': product.city or '-',
+                'name': product.bd_division_id or '-',
+                'name': product.country_id or '-',
+                'name': product.st_father_name or '-',
                 'name': product.st_mother_name or '-',
+                'name': product.mobile or '-',
+                'name': product.mobile or '-',
                 'name': product.mobile or '-',
                 'category': product.categ_id.name or '-',
                 'price': line.price_unit,

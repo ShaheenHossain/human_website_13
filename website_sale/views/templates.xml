@@ -509,9 +509,15 @@
                         </div>
                         <div class="col-md-6 col-xl-4" id="product_details">
                             <h1 itemprop="name" t-field="product.name">Name</h1>
-                            <h5 itemprop="st_father_name" t-field="product.st_father_name" string="Father's Name :">Father Name: </h5>
-                            <h5 itemprop="st_mother_name" t-field="product.st_mother_name" string="Mothers's Name">Mother Name: </h5>
-                            <h5 itemprop="mobile" t-field="product.mobile" string="Mobile :">Mobile: </h5>
+                            <h6 itemprop="st_father_name" t-field="product.house_no">House No.: </h6>
+                            <h6 itemprop="st_father_name" t-field="product.road_no">Road No.: </h6>
+<!--                            <h6 itemprop="st_father_name" t-field="product.post_office">Post Office: </h6>-->
+                            <h6 itemprop="st_father_name" t-field="product.city" >City: </h6>
+                            <h6 itemprop="st_father_name" t-field="product.bd_division_id" >Divistion: </h6>
+                            <h6 itemprop="st_father_name" t-field="product.country_id" >Country: </h6>
+                            <h6 itemprop="st_father_name" t-field="product.st_father_name" string="Father's Name :">Father's Name: </h6>
+                            <h6 itemprop="st_mother_name" t-field="product.st_mother_name" string="Mothers's Name">Mother's Name: </h6>
+                            <h6 itemprop="mobile" t-field="product.mobile" string="Mobile :">Mobile: </h6>
                             <span itemprop="url" style="display:none;" t-esc="product.website_url"/>
                             <form t-if="product._is_add_to_cart_possible()" action="/info/cart/update" method="POST">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
