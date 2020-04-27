@@ -2,6 +2,8 @@ from eagle import fields, models, api, _
 
 class EagleeduHuman(models.Model):
     _name = 'eagleedu.student'
+    # _inherit = 'res.partner'
+    _inherits = {'res.partner': 'image_1920'}
     _inherits = {'res.partner': 'partner_id'}
     _description = 'This the application for Human'
     _order = 'id desc'
@@ -25,10 +27,22 @@ class EagleeduHuman(models.Model):
         res = super(EagleeduHuman, self).create(vals)
         return res
 
+    # @api.model
+    # def create(self, vals):
+    #     """Over riding the create method to assign sequence for the newly creating the record"""
+    #     vals['adm_no'] = self.env['ir.sequence'].next_by_code('eagleedu.student')
+    #     res = super(EagleeduHuman, self).create(vals)
+    #     return res
+
+
+
+
     partner_id = fields.Many2one(
-        'res.partner', string='Partner', required=True, ondelete="cascade")
+        'res.partner', string='Partner', ondelete="cascade")
     adm_no = fields.Char(string="Admission No.", readonly=True)
     image_1920 = fields.Binary(string='Image', help="Provide the image of the Human")
+    # image = fields.Binary(string='Image', help="Provide the image of the Human")
+
     application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
                        index=True, default=lambda self: _('New'))
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
@@ -99,7 +113,7 @@ class EagleeduHuman(models.Model):
         for rec in self:
             values = {
                 'name': rec.name,
-                'image_1920': rec.image_1920,
+                'image': rec.image,
                 'application_no': rec.id,
                 'st_father_name': rec.st_father_name,
                 'st_mother_name': rec.st_mother_name,
@@ -127,8 +141,8 @@ class EagleeduHuman(models.Model):
             }
             student = self.env['product.template'].create(values)
             rec.write({
-                'state': 'done'
-            })
+                'state': 'done',
+           })
             return {
                 'name': _('Human'),
                 'view_type': 'form',
@@ -138,3 +152,73 @@ class EagleeduHuman(models.Model):
                 'res_id': student.id,
                 'context': self.env.context
             }
+
+    # def create_human(self, values):
+    #         student = self.env['product.template'].create(values)
+    #         values['res.partner']= student
+    #         # values['image'] = student
+    #         rec.write({
+    #             'state': 'done'
+    #         })
+    #         return super(product.template, self).create(values)
+
+
+    # def create(self, vals):
+    #     x = self.env['ir.sequence'].next_by_code('pickabite.orders') or '/'
+    #     vals['bill_num'] = x
+    #     vals['order_id'] = x
+    #     return super(orders, self).create(vals)
+
+
+
+
+    # def create_human(self):
+    #     """Create student from the application and data and return the student"""
+    #     for rec in self:
+    #         values = {
+    #             'name': rec.name,
+    #             'image': rec.image,
+    #             # 'application_no': rec.id,
+    #             # 'st_father_name': rec.st_father_name,
+    #             # 'st_mother_name': rec.st_mother_name,
+    #             # 'mobile': rec.mobile,
+    #             'email': rec.email,
+    #             # 'st_gender': rec.st_gender,
+    #             # 'date_of_birth': rec.date_of_birth,
+    #             # 'st_blood_group': rec.st_blood_group,
+    #             # 'nationality': rec.nationality.id,
+    #             # 'house_no': rec.house_no,
+    #             # 'road_no': rec.road_no,
+    #             # 'post_office': rec.post_office,
+    #             # 'city': rec.city,
+    #             # 'bd_division_id': rec.bd_division_id.id,
+    #             # 'country_id': rec.country_id.id,
+    #             # 'per_village': rec.per_village,
+    #             # 'per_po': rec.per_po,
+    #             # 'per_ps': rec.per_ps,
+    #             # 'per_dist_id': rec.per_dist_id.id,
+    #             # 'per_bd_division_id': rec.per_bd_division_id.id,
+    #             # 'per_country_id': rec.per_country_id.id,
+    #             # 'religious_id': rec.religious_id.id,
+    #             # 'application_no': rec.application_no,
+    #             # 'description_sale': rec.description_sale,
+    #         }
+    #         student = self.env['res.partner'].create(values)
+    #         values['image']=student
+    #         return {'context': self.env.context}
+
+    #         {
+    #             'name': _('Human'),
+    #             'view_type': 'form',
+    #             'view_mode': 'form',
+    #             'res_model': 'eagleedu.student',
+    #             'type': 'ir.actions.act_window',
+    #             'res_id': student.id,
+    #             'context': self.env.context
+    #         }
+    # def create(self, vals):
+    #     x = self.env['ir.sequence'].next_by_code('pickabite.orders') or '/'
+    #     vals['bill_num'] = x
+    #     vals['order_id'] = x
+    #     return super(orders, self).create(vals)
+    # return super(orders, self).create(vals)

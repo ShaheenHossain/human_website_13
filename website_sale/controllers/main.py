@@ -40,7 +40,7 @@ class TableCompute(object):
                 self.table[posy + y].setdefault(x, None)
         return res
 
-    def process(self, products, ppg=20, ppr=4):
+    def process(self, products, ppg=20, ppr=6):
         # Compute products positions on the grid
         minpos = 0
         index = 0
@@ -1111,17 +1111,15 @@ class WebsiteSale(http.Controller):
                 'id': line.order_id.id,
                 'sku': product.barcode or product.id,
                 'name': product.name or '-',
-                'name': product.house_no or '-', #for auto update website publish the provided information
-                'name': product.road_no or '-', #for auto update website publish the provided information
-                'name': product.post_office or '-',
-                'name': product.city or '-',
-                'name': product.bd_division_id or '-',
-                'name': product.country_id or '-',
-                'name': product.st_father_name or '-',
-                'name': product.st_mother_name or '-',
-                'name': product.mobile or '-',
-                'name': product.mobile or '-',
-                'name': product.mobile or '-',
+                'house_no': product.house_no or '-', #for auto update website publish the provided information
+                'road_no': product.road_no or '-', #for auto update website publish the provided information
+                'post_office': product.post_office or '-',
+                'city': product.city or '-',
+                'bd_division_id': product.bd_division_id or '-',
+                'country_id': product.country_id or '-',
+                'st_father_name': product.st_father_name or '-',
+                'st_mother_name': product.st_mother_name or '-',
+                'mobile': product.mobile or '-',
                 'category': product.categ_id.name or '-',
                 'price': line.price_unit,
                 'quantity': line.product_uom_qty,

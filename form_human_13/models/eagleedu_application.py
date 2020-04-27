@@ -14,7 +14,7 @@ class EagleeduApplication(models.Model):
     application_date = fields.Datetime('Application Date', default=lambda self: fields.datetime.now())  # , default=fields.Datetime.now, required=True
     name = fields.Char(string='Human Name', required=True, help="Enter Name of Human")
     st_name_b = fields.Char(string='Human Bangla Name')
-    image_1920 = fields.Binary(string='Image', help="Provide the image of the Human")
+    image = fields.Binary(string='Image', help="Provide the image of the Human")
     st_father_name = fields.Char(string="Father's Name", help="Proud to say my father is", required=False)
     st_father_name_b = fields.Char(string="বাবার নাম", help="Proud to say my father is")
     st_father_occupation = fields.Char(string="Father's Occupation", help="father Occupation")
@@ -101,7 +101,7 @@ class EagleeduApplication(models.Model):
         for rec in self:
             values = {
                 'name': rec.name,
-                'image_1920': rec.image_1920,
+                'image_1920': rec.image,
                 'application_no': rec.id,
                 'st_father_name': rec.st_father_name,
                 'st_mother_name': rec.st_mother_name,
@@ -140,6 +140,8 @@ class EagleeduApplication(models.Model):
                 'res_id': student.id,
                 'context': self.env.context
             }
+
+
 
 class EagleeduBddivision(models.Model):
     _name = 'eagleedu.bddivision'

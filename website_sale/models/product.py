@@ -176,12 +176,12 @@ class ProductPublicCategory(models.Model):
 
 
 class ProductTemplate(models.Model):
-    _inherit = ["product.template", "website.seo.metadata", 'website.published.multi.mixin', 'rating.mixin']
+    _inherit = ["product.template", "website.seo.metadata", 'website.published.multi.mixin', 'rating.mixin', 'image.mixin' ]
     _name = 'product.template'
     _mail_post_access = 'read'
 
     partner_id = fields.Many2one(
-        'res.partner', string='Partner', required=True, ondelete="cascade")
+        'res.partner', string='Partner', ondelete="cascade")
     adm_no = fields.Char(string="Admission No.", readonly=True)
     image_1920 = fields.Binary(string='Image', help="Provide the image of the Human")
     application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
@@ -225,9 +225,6 @@ class ProductTemplate(models.Model):
                               string='Status', required=True, default='draft', track_visibility='onchange')
 
     description_sale = fields.Text(string="Description", help="Enter description")
-
-
-
 
 
     website_description = fields.Html('Description for the website', sanitize_attributes=False, translate=html_translate)

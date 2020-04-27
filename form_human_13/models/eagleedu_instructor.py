@@ -23,7 +23,7 @@ class EagleeduInstructor(models.Model):
     ins_email = fields.Char(string="Email Address")
     ins_present_address = fields.Char(string="Present Address")
     ins_permanent_address = fields.Char(string="Permanent Address")
-    ins_image = fields.Binary(string="Instructor Image")
+    image = fields.Binary(string="Instructor Image")
     ins_gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
                                 string='Gender', required=False, track_visibility='onchange',
                                 help="Your Gender is")

@@ -6,7 +6,8 @@ from eagle.addons.website.models import ir_http
 
 
 class ResPartner(models.Model):
-    _inherit = 'res.partner'
+    _inherits = {'res.partner': 'image_1920'}
+
 
     last_website_so_id = fields.Many2one('sale.order', compute='_compute_last_website_so_id', string='Last Online Sales Order')
 

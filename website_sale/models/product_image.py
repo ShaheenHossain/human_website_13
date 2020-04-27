@@ -20,6 +20,7 @@ class ProductImage(models.Model):
 
     product_tmpl_id = fields.Many2one('product.template', "Product Template", index=True, ondelete='cascade')
     product_variant_id = fields.Many2one('product.product', "Product Variant", index=True, ondelete='cascade')
+    image_1920_id = fields.Many2one('res.partner', "Partner Image", index=True, ondelete='cascade')
     video_url = fields.Char('Video URL',
                             help='URL of a video for showcasing your product.')
     embed_code = fields.Char(compute="_compute_embed_code")
