@@ -3,8 +3,9 @@ from eagle import fields, models, api, _
 class EagleeduHuman(models.Model):
     _name = 'eagleedu.student'
     # _inherit = 'res.partner'
-    _inherits = {'res.partner': 'image_1920'}
+    # _inherits = {'res.partner': 'image_1920'}
     _inherits = {'res.partner': 'partner_id'}
+    _inherit = 'image.mixin'
     _description = 'This the application for Human'
     _order = 'id desc'
     _rec_name = 'name'
@@ -28,11 +29,17 @@ class EagleeduHuman(models.Model):
         return res
 
     # @api.model
-    # def create(self, vals):
-    #     """Over riding the create method to assign sequence for the newly creating the record"""
-    #     vals['adm_no'] = self.env['ir.sequence'].next_by_code('eagleedu.student')
-    #     res = super(EagleeduHuman, self).create(vals)
-    #     return res
+    # def create_partener(self, partner):
+    #     if partner.get('image_1920'):
+    #         partner['image_1920'] = partner['image_1920']
+    #     partner_id = partner.pop('id', False)
+    #     if partner_id:  # Modifying existing partner
+    #         self.browse(partner_id).write(partner)
+    #     else:
+    #         partner['lang'] = self.env.user.lang
+    #         partner_id = self.create(partner).id
+    #     return partner_id
+
 
 
 
@@ -40,8 +47,7 @@ class EagleeduHuman(models.Model):
     partner_id = fields.Many2one(
         'res.partner', string='Partner', ondelete="cascade")
     adm_no = fields.Char(string="Admission No.", readonly=True)
-    image_1920 = fields.Binary(string='Image', help="Provide the image of the Human")
-    # image = fields.Binary(string='Image', help="Provide the image of the Human")
+    image_1920 = fields.Image(string='Image', help="Provide the image of the Human")
 
     application_no = fields.Char(string='Application  No', required=True, copy=False, readonly=True,
                        index=True, default=lambda self: _('New'))
@@ -108,12 +114,13 @@ class EagleeduHuman(models.Model):
             })
 
 
+
     def create_human(self):
         """Create student from the application and data and return the student"""
         for rec in self:
             values = {
                 'name': rec.name,
-                'image': rec.image,
+                'image_1920': rec.image_1920,
                 'application_no': rec.id,
                 'st_father_name': rec.st_father_name,
                 'st_mother_name': rec.st_mother_name,

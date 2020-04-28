@@ -5,6 +5,8 @@ from eagle import models, fields, api, _
 class EagleeduApplication(models.Model):
     _name = 'eagleedu.application'
     _description = 'This is Human Application Form'
+    _inherit = 'image.mixin'
+
     # _order = 'id desc'
     # _inherit = ['mail.thread']
 
@@ -14,7 +16,7 @@ class EagleeduApplication(models.Model):
     application_date = fields.Datetime('Application Date', default=lambda self: fields.datetime.now())  # , default=fields.Datetime.now, required=True
     name = fields.Char(string='Human Name', required=True, help="Enter Name of Human")
     st_name_b = fields.Char(string='Human Bangla Name')
-    image = fields.Binary(string='Image', help="Provide the image of the Human")
+    image_1920 = fields.Image(string='Image', help="Provide the image of the Human")
     st_father_name = fields.Char(string="Father's Name", help="Proud to say my father is", required=False)
     st_father_name_b = fields.Char(string="বাবার নাম", help="Proud to say my father is")
     st_father_occupation = fields.Char(string="Father's Occupation", help="father Occupation")
@@ -96,12 +98,14 @@ class EagleeduApplication(models.Model):
                 'state': 'approve'
             })
 
+
+
     def create_student(self):
         """Create student from the application and data and return the student"""
         for rec in self:
             values = {
                 'name': rec.name,
-                'image_1920': rec.image,
+                'image_1920': rec.image_1920,
                 'application_no': rec.id,
                 'st_father_name': rec.st_father_name,
                 'st_mother_name': rec.st_mother_name,
